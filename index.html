@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عالم الحروف - لعبة تعليمية للأطفال</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+:root {
+    --purple: #7956df;
+    --pink: #ff719b;
+    --yellow: #ffca4f;
+    --blue: #54c8f5;
+    --green: #60d6a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: #fff9ef;
+    color: #37305b;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+}
+
+/* Background */
+
+.background-shapes span {
+    position: fixed;
+    z-index: -1;
+    font-size: 35px;
+    opacity: .25;
+    animation: float 5s ease-in-out infinite;
+}
+
+.background-shapes span:nth-child(1) {
+    top: 12%;
+    left: 5%;
+}
+
+.background-shapes span:nth-child(2) {
+    top: 65%;
+    left: 8%;
+    animation-delay: 1s;
+}
+
+.background-shapes span:nth-child(3) {
+    top: 25%;
+    right: 5%;
+    animation-delay: 2s;
+}
+
+.background-shapes span:nth-child(4) {
+    top: 80%;
+    right: 8%;
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-20px) rotate(15deg); }
+}
+
+/* Header */
+
+header {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 23px;
+    font-weight: 900;
+    color: var(--purple);
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    background: #ede5ff;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+}
+
+.score {
+    background: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: 800;
+    box-shadow: 0 5px 20px #0000000c;
+    color: #f3a51c;
+}
+
+/* Main */
+
+.container {
+    max-width: 1100px;
+    padding: 15px 20px 50px;
+    margin: auto;
+}
+
+.hero {
+    text-align: center;
+    padding: 25px 15px 35px;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 900;
+    color: var(--purple);
+    line-height: 1.5;
+}
+
+.hero h1 span {
+    color: var(--pink);
+}
+
+.hero p {
+    color: #827b9d;
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.hero-emoji {
+    font-size: 55px;
+    display: inline-block;
+    margin-bottom: 5px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Navigation */
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.tab {
+    background: white;
+    color: #77708f;
+    border-radius: 18px;
+    padding: 12px 25px;
+    font-weight: 800;
+    font-size: 15px;
+    transition: .3s;
+    box-shadow: 0 4px 15px #00000008;
+}
+
+.tab.active {
+    background: var(--purple);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px #7956df40;
+}
+
+/* Sections */
+
+.section {
+    display: none;
+    animation: appear .4s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Letters */
+
+.section-title {
+    text-align: center;
+    font-size: 23px;
+    font-weight: 900;
+    margin-bottom: 22px;
+}
+
+.letters-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 14px;
+}
+
+.letter-card {
+    background: white;
+    border-radius: 20px;
+    min-height: 115px;
+    padding: 12px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border: 3px solid transparent;
+    box-shadow: 0 5px 15px #00000009;
+    transition: .25s;
+    position: relative;
+    overflow: hidden;
+}
+
+.letter-card:hover {
+    transform: translateY(-7px) rotate(-2deg);
+    border-color: var(--card-color);
+    box-shadow: 0 10px 25px #00000012;
+}
+
+.letter-card .letter {
+    font-size: 43px;
+    font-weight: 900;
+    color: var(--card-color);
+    line-height: 1.3;
+}
+
+.letter-card .word {
+    font-size: 12px;
+    font-weight: 800;
+    color: #89839d;
+}
+
+.letter-card .mini-emoji {
+    font-size: 20px;
+}
+
+.letter-card.selected {
+    border-color: var(--card-color);
+    background: var(--card-bg);
+}
+
+/* Letter details */
+
+.letter-details {
+    margin-top: 30px;
+    background: white;
+    border-radius: 28px;
+    padding: 25px;
+    display: none;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    gap: 25px;
+    box-shadow: 0 10px 35px #0000000d;
+    animation: appear .4s ease;
+}
+
+.letter-details.show {
+    display: grid;
+}
+
+.big-letter {
+    width: 170px;
+    height: 170px;
+    border-radius: 35px;
+    display: grid;
+    place-items: center;
+    font-size: 105px;
+    font-weight: 900;
+    margin: auto;
+    animation: pop .4s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(.5); }
+    70% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.details-info {
+    text-align: center;
+}
+
+.details-info h2 {
+    font-size: 30px;
+    color: var(--purple);
+}
+
+.details-info p {
+    color: #89839d;
+    font-weight: 700;
+    margin: 5px 0 15px;
+}
+
+.word-display {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.word-display span {
+    font-size: 60px;
+    display: block;
+}
+
+.sound-btn {
+    background: var(--blue);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 16px;
+    transition: .2s;
+}
+
+.sound-btn:hover {
+    transform: scale(1.06);
+}
+
+/* Quiz */
+
+.quiz-box {
+    background: white;
+    border-radius: 30px;
+    padding: 30px 20px;
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 10px 35px #0000000c;
+}
+
+.quiz-progress {
+    background: #eeeaf8;
+    height: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.quiz-progress div {
+    height: 100%;
+    width: 0%;
+    background: var(--green);
+    transition: .4s;
+}
+
+.quiz-question {
+    font-size: 20px;
+    font-weight: 800;
+    color: #88819f;
+}
+
+.quiz-emoji {
+    font-size: 100px;
+    margin: 15px 0;
+    animation: bounce 2s infinite;
+}
+
+.quiz-question h2 {
+    font-size: 26px;
+    color: var(--purple);
+}
+
+.answers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.answer {
+    background: #f4f0ff;
+    color: var(--purple);
+    border-radius: 20px;
+    padding: 15px;
+    font-size: 40px;
+    font-weight: 900;
+    transition: .2s;
+}
+
+.answer:hover {
+    transform: scale(1.07);
+    background: #e8ddff;
+}
+
+.answer.correct {
+    background: #d9f9e9;
+    color: #19a86b;
+}
+
+.answer.wrong {
+    background: #ffe0e5;
+    color: #e84e6a;
+}
+
+.feedback {
+    min-height: 45px;
+    padding-top: 15px;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.next-btn {
+    background: var(--purple);
+    color: white;
+    padding: 13px 35px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 15px;
+    display: none;
+}
+
+.next-btn:hover {
+    background: #6141c0;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #aaa2be;
+    font-weight: 700;
+}
+
+/* Confetti */
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    font-size: 25px;
+    pointer-events: none;
+    z-index: 999;
+    animation: fall 2.5s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+
+@media(max-width: 800px) {
+    .letters-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .letter-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 500px) {
+    header {
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .letters-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 9px;
+    }
+
+    .letter-card {
+        min-height: 100px;
+    }
+
+    .letter-card .letter {
+        font-size: 37px;
+    }
+
+    .hero {
+        padding: 15px 5px 25px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .tab {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .big-letter {
+        width: 130px;
+        height: 130px;
+        font-size: 80px;
+    }
+
+    .answers {
+        gap: 9px;
+    }
+
+    .answer {
+        font-size: 32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-shapes">
+    <span>⭐</span>
+    <span>🌈</span>
+    <span>🎈</span>
+    <span>✨</span>
+</div>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">📚</div>
+        عالم الحروف
+    </div>
+    <div class="score">⭐ <span id="score">0</span> نقطة</div>
+</header>
+
+<main class="container">
+
+    <div class="hero">
+        <div class="hero-emoji">🦁</div>
+        <h1>يلا نتعلم <span>الحروف!</span></h1>
+        <p>رحلة ممتعة في عالم الحروف العربية 🌈</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showSection('learn',this)">
+            🔤 تعلم الحروف
+        </button>
+
+        <button class="tab" onclick="showSection('quiz',this)">
+            🎮 اختبر نفسك
+        </button>
+    </div>
+
+    <!-- Learn Section -->
+
+    <section class="section active" id="learn">
+
+        <h2 class="section-title">🌟 اختار حرف وخلينا نتعلمه!</h2>
+
+        <div class="letters-grid" id="lettersGrid"></div>
+
+        <div class="letter-details" id="letterDetails">
+
+            <div class="big-letter" id="bigLetter">أ</div>
+
+            <div class="details-info">
+                <h2 id="letterTitle">حرف الألف</h2>
+                <p>تعال نتعرف على الحرف ده!</p>
+
+                <div class="word-display">
+                    <span id="wordEmoji">🍍</span>
+                    <div id="wordText">أناناس</div>
+                </div>
+
+                <button class="sound-btn" onclick="speakCurrent()">
+                    🔊 اسمع الحرف والكلمة
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+
+    <section class="section" id="quiz">
+
+        <div class="quiz-box">
+
+            <div class="quiz-progress">
+                <div id="progress"></div>
+            </div>
+
+            <div class="quiz-question">
+                السؤال <span id="questionNumber">1</span>
+            </div>
+
+            <div class="quiz-emoji" id="quizEmoji">🍎</div>
+
+            <div class="quiz-question">
+                <h2 id="quizTitle">فين حرف الألف؟</h2>
+            </div>
+
+            <div class="answers" id="answers"></div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+                السؤال التالي ➜
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    صنعنا عالمًا مليئًا بالمرح والتعلم ❤️
+</footer>
+
+<script>
+
+// Arabic Letters Data
+
+const letters = [
+    {l:"أ",name:"الألف",word:"أسد",emoji:"🦁",color:"#ff719b",bg:"#fff0f5"},
+    {l:"ب",name:"الباء",word:"بطة",emoji:"🦆",color:"#54b9ed",bg:"#edf8ff"},
+    {l:"ت",name:"التاء",word:"تفاحة",emoji:"🍎",color:"#f5a623",bg:"#fff8e8"},
+    {l:"ث",name:"الثاء",word:"ثعلب",emoji:"🦊",color:"#a879df",bg:"#f6efff"},
+    {l:"ج",name:"الجيم",word:"جمل",emoji:"🐪",color:"#55bd91",bg:"#eafff4"},
+    {l:"ح",name:"الحاء",word:"حصان",emoji:"🐎",color:"#ed8a68",bg:"#fff0e9"},
+    {l:"خ",name:"الخاء",word:"خروف",emoji:"🐑",color:"#64b8cf",bg:"#eafaff"},
+    {l:"د",name:"الدال",word:"دب",emoji:"🐻",color:"#b17b57",bg:"#fff1e8"},
+    {l:"ذ",name:"الذال",word:"ذرة",emoji:"🌽",color:"#d6a82e",bg:"#fff9dc"},
+    {l:"ر",name:"الراء",word:"رمان",emoji:"🍎",color:"#ef6c7d",bg:"#fff0f2"},
+    {l:"ز",name:"الزاي",word:"زهرة",emoji:"🌸",color:"#db7cb7",bg:"#fff0fa"},
+    {l:"س",name:"السين",word:"سمكة",emoji:"🐟",color:"#52b5df",bg:"#eaf8ff"},
+    {l:"ش",name:"الشين",word:"شمس",emoji:"☀️",color:"#f0ae30",bg:"#fff7dc"},
+    {l:"ص",name:"الصاد",word:"صقر",emoji:"🦅",color:"#8c75d8",bg:"#f3efff"},
+    {l:"ض",name:"الضاد",word:"ضفدع",emoji:"🐸",color:"#62b98a",bg:"#eafff1"},
+    {l:"ط",name:"الطاء",word:"طائرة",emoji:"✈️",color:"#6c9de8",bg:"#eff5ff"},
+    {l:"ظ",name:"الظاء",word:"ظرف",emoji:"✉️",color:"#c68b59",bg:"#fff3e9"},
+    {l:"ع",name:"العين",word:"عنب",emoji:"🍇",color:"#a27bd8",bg:"#f4edff"},
+    {l:"غ",name:"الغين",word:"غزال",emoji:"🦌",color:"#e49b48",bg:"#fff4e7"},
+    {l:"ف",name:"الفاء",word:"فراشة",emoji:"🦋",color:"#e879ad",bg:"#fff0f7"},
+    {l:"ق",name:"القاف",word:"قطة",emoji:"🐱",color:"#55b8b0",bg:"#eafffa"},
+    {l:"ك",name:"الكاف",word:"كتاب",emoji:"📖",color:"#7794dd",bg:"#eff3ff"},
+    {l:"ل",name:"اللام",word:"ليمون",emoji:"🍋",color:"#b4bd45",bg:"#f9fbe7"},
+    {l:"م",name:"الميم",word:"موز",emoji:"🍌",color:"#e6ac37",bg:"#fff8e6"},
+    {l:"ن",name:"النون",word:"نحلة",emoji:"🐝",color:"#d8a239",bg:"#fff6dc"},
+    {l:"ه",name:"الهاء",word:"هدهد",emoji:"🐦",color:"#e17c9e",bg:"#fff0f4"},
+    {l:"و",name:"الواو",word:"وردة",emoji:"🌹",color:"#df789f",bg:"#fff0f5"},
+    {l:"ي",name:"الياء",word:"يد",emoji:"✋",color:"#64a8dc",bg:"#edf7ff"}
+];
+
+let currentLetter = null;
+let score = 0;
+let currentQuestion = 0;
+let currentAnswer = null;
+let locked = false;
+let questions = [];
+
+const lettersGrid = document.getElementById("lettersGrid");
+
+// Render letters
+
+function renderLetters() {
+
+    lettersGrid.innerHTML = "";
+
+    letters.forEach((item,index) => {
+
+        const card = document.createElement("button");
+
+        card.className = "letter-card";
+        card.style.setProperty("--card-color",item.color);
+        card.style.setProperty("--card-bg",item.bg);
+
+        card.innerHTML = `
+            <span class="mini-emoji">${item.emoji}</span>
+            <span class="letter">${item.l}</span>
+            <span class="word">${item.word}</span>
+        `;
+
+        card.onclick = () => selectLetter(index,card);
+
+        lettersGrid.appendChild(card);
+
+    });
+
+}
+
+// Select letter
+
+function selectLetter(index,card) {
+
+    const item = letters[index];
+
+    currentLetter = item;
+
+    document.querySelectorAll(".letter-card").forEach(c => {
+        c.classList.remove("selected");
+    });
+
+    card.classList.add("selected");
+
+    const details = document.getElementById("letterDetails");
+
+    details.classList.add("show");
+
+    const bigLetter = document.getElementById("bigLetter");
+
+    bigLetter.textContent = item.l;
+    bigLetter.style.color = item.color;
+    bigLetter.style.background = item.bg;
+
+    document.getElementById("letterTitle").textContent =
+        "حرف " + item.name;
+
+    document.getElementById("wordEmoji").textContent = item.emoji;
+    document.getElementById("wordText").textContent = item.word;
+
+    details.scrollIntoView({
+        behavior:"smooth",
+        block:"nearest"
+    });
+
+    speak(item.name);
+}
+
+// Speech
+
+function speak(text) {
+
+    if (!("speechSynthesis" in window)) {
+        alert("المتصفح لا يدعم خاصية النطق");
+        return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.lang = "ar-SA";
+    utterance.rate = 0.8;
+    utterance.pitch = 1.2;
+
+    window.speechSynthesis.speak(utterance);
+
+}
+
+function speakCurrent() {
+
+    if (!currentLetter) return;
+
+    speak("حرف " + currentLetter.name + ". " + currentLetter.word);
+
+}
+
+// Navigation
+
+function showSection(section,button) {
+
+    document.querySelectorAll(".section").forEach(s => {
+        s.classList.remove("active");
+    });
+
+    document.querySelectorAll(".tab").forEach(t => {
+        t.classList.remove("active");
+    });
+
+    document.getElementById(section).classList.add("active");
+
+    button.classList.add("active");
+
+    if(section === "quiz") {
+        startQuiz();
+    }
+
+}
+
+// Shuffle
+
+function shuffle(array) {
+
+    return [...array].sort(() => Math.random() - 0.5);
+
+}
+
+// Start quiz
+
+function startQuiz() {
+
+    questions = shuffle(letters);
+    currentQuestion = 0;
+
+    loadQuestion();
+
+}
+
+// Load question
+
+function loadQuestion() {
+
+    locked = false;
+
+    if(currentQuestion >= questions.length) {
+
+        document.querySelector(".quiz-box").innerHTML = `
+            <div style="font-size:90px">🏆</div>
+            <h2 style="color:#7956df;font-size:30px">
+                برافو عليك يا بطل!
+            </h2>
+            <p style="margin:15px;color:#888">
+                خلصت كل الأسئلة! استمر في التعلم والمرح ❤️
+            </p>
+            <h2 style="color:#f2b52f">
+                ⭐ ${score} نقطة
+            </h2>
+            <button class="next-btn" style="display:inline-block"
+                onclick="restartQuiz()">
+                العب تاني 🔄
+            </button>
+        `;
+
+        celebrate();
+        return;
+
+    }
+
+    const question = questions[currentQuestion];
+
+    currentAnswer = question;
+
+    document.getElementById("questionNumber").textContent =
+        currentQuestion + 1;
+
+    document.getElementById("progress").style.width =
+        ((currentQuestion / questions.length) * 100) + "%";
+
+    document.getElementById("quizEmoji").textContent =
+        question.emoji;
+
+    document.getElementById("quizTitle").textContent =
+        "فين حرف " + question.name + "؟";
+
+    document.getElementById("feedback").textContent = "";
+
+    document.getElementById("nextBtn").style.display = "none";
+
+    const wrongAnswers = shuffle(
+        letters.filter(l => l.l !== question.l)
+    ).slice(0,2);
+
+    const options = shuffle([question,...wrongAnswers]);
+
+    const answers = document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+    options.forEach(option => {
+
+        const button = document.createElement("button");
+
+        button.className = "answer";
+        button.textContent = option.l;
+
+        button.onclick = () => checkAnswer(option,button);
+
+        answers.appendChild(button);
+
+    });
+
+}
+
+// Check answer
+
+function checkAnswer(option,button) {
+
+    if(locked) return;
+
+    locked = true;
+
+    if(option.l === currentAnswer.l) {
+
+        button.classList.add("correct");
+
+        score += 10;
+
+        document.getElementById("score").textContent = score;
+
+        document.getElementById("feedback").textContent =
+            "🎉 برافو! إجابة صحيحة يا بطل!";
+
+        document.getElementById("feedback").style.color = "#27b77d";
+
+        celebrate();
+
+        speak("أحسنت! إجابة صحيحة!");
+
+    } else {
+
+        button.classList.add("wrong");
+
+        document.getElementById("feedback").textContent =
+            "💪 حاول مرة تانية في السؤال الجاي!";
+
+        document.getElementById("feedback").style.color = "#ed6880";
+
+        speak("حاول مرة أخرى");
+
+        document.querySelectorAll(".answer").forEach(btn => {
+
+            if(btn.textContent === currentAnswer.l) {
+                btn.classList.add("correct");
+            }
+
+        });
+
+    }
+
+    document.getElementById("nextBtn").style.display = "inline-block";
+
+}
+
+// Next question
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    loadQuestion();
+
+}
+
+// Restart quiz
+
+function restartQuiz() {
+
+    const quizBox = document.querySelector(".quiz-box");
+
+    quizBox.innerHTML = `
+        <div class="quiz-progress">
+            <div id="progress"></div>
+        </div>
+        <div class="quiz-question">
+            السؤال <span id="questionNumber">1</span>
+        </div>
+        <div class="quiz-emoji" id="quizEmoji">🍎</div>
+        <div class="quiz-question">
+            <h2 id="quizTitle"></h2>
+        </div>
+        <div class="answers" id="answers"></div>
+        <div class="feedback" id="feedback"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+            السؤال التالي ➜
+        </button>
+    `;
+
+    score = 0;
+    document.getElementById("score").textContent = score;
+
+    startQuiz();
+
+}
+
+// Celebration
+
+function celebrate() {
+
+    const emojis = ["⭐","✨","🎉","🌈","💖","🎈"];
+
+    for(let i=0; i<22; i++) {
+
+        const element = document.createElement("div");
+
+        element.className = "confetti";
+
+        element.textContent =
+            emojis[Math.floor(Math.random()*emojis.length)];
+
+        element.style.left = Math.random()*100 + "vw";
+
+        element.style.animationDelay =
+            Math.random()*0.8 + "s";
+
+        document.body.appendChild(element);
+
+        setTimeout(() => element.remove(),3500);
+
+    }
+
+}
+
+// Initialize
+
+renderLetters();
+
+</script>
+
+</body>
+</html>
